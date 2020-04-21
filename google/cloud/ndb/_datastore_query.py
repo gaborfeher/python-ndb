@@ -268,7 +268,7 @@ class _QueryIteratorImpl(QueryIterator):
 
         elif self._has_next_batch:
             yield self._next_batch()
-            raise tasklets.Return(self._index < len(self._batch))
+            raise tasklets.Return(self._has_next_batch or self._index < len(self._batch))
 
         raise tasklets.Return(False)
 
