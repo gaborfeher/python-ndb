@@ -302,6 +302,7 @@ class _QueryIteratorImpl(QueryIterator):
             _Result(result_type, result_pb, query.order_by)
             for result_pb in response.batch.entity_results
         ]
+        logging.info([p.key.id() for p in self._batch])
 
         self._has_next_batch = more_results = (
             batch.more_results == MORE_RESULTS_TYPE_NOT_FINISHED
