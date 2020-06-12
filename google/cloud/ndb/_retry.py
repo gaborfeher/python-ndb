@@ -27,6 +27,9 @@ _DEFAULT_DELAY_MULTIPLIER = 2.0
 _DEFAULT_RETRIES = 3
 
 
+import logging
+
+
 def wraps_safely(obj, attr_names=functools.WRAPPER_ASSIGNMENTS):
     """Python 2.7 functools.wraps has a bug where attributes like ``module``
     are not copied to the wrappers and thus cause attribute errors. This
@@ -75,6 +78,7 @@ def retry_async(callback, retries=_DEFAULT_RETRIES):
                 error = e  # See: https://goo.gl/5J8BMK
                 if not is_transient_error(error):
                     raise error
+                logging.exception('retryable error')
             else:
                 raise tasklets.Return(result)
 
